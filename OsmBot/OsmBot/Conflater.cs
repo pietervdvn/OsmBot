@@ -119,7 +119,7 @@ namespace OsmBot
                     grbTags.AddOrReplace("fixme", msg);
                 }
             }
-            
+
             if (osmObj.Tags.TryGetValue("addr:street", out var osmStreet))
             {
                 grbTags.TryGetValue("addr:street", out var grbStreet);
@@ -193,7 +193,7 @@ namespace OsmBot
                 if (w.Tags.TryGetValue("source:geometry:ref", out _))
                 {
                     // Already from GRB or conflated - skip!
-                 //   continue;
+                    continue;
                 }
 
                 osmBuildings.Add((ToPolygon(w), w));

@@ -13,4 +13,9 @@ A C# program which automates a few OSM tasks, mainly conflating GRB and OSM
 7) Each changeset will be loaded as a layer. Select them all, rightclick and hit `merge`. (If merge is not visible, enable 'advanced mode' in settings)
 8) Hit upload with a decent commit message
 9) Remove the `GRB.osm`-files. As long as they are present, the program will try to conflate them again
-10) Close JOSM and repeat
+10) Wait five minutes, to let overpass catch up
+11) Return to the GRB website, hiet 'load OSM data', (wait), 'Filter GRB data', 'Open area in Josm' and 'Export GRB'
+12) Now, the 'leftovers' will be shown into JOSM and can be merged manually
+
+
+
