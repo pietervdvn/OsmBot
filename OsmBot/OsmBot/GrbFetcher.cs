@@ -3,7 +3,7 @@ using System.IO;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
 
-namespace Wikipedia2Street
+namespace OsmBot
 {
     public class GrbFetcher
     {
@@ -32,7 +32,7 @@ namespace Wikipedia2Street
                 foreach (var oldCoordinate in oldCoordinates)
                 { Console.WriteLine(oldCoordinate);
 
-                    var newCoordinate = lambert72toWGS84(oldCoordinate[1].Value<double>(), oldCoordinate[0].Value<double>());
+                    var newCoordinate = Lambert72ToWgs84(oldCoordinate[1].Value<double>(), oldCoordinate[0].Value<double>());
                     newCoordinates.Add(newCoordinate);
                 }
 
@@ -42,12 +42,12 @@ namespace Wikipedia2Street
         }
 
 
-        static JArray lambert72toWGS84(double x, double y)
+        static JArray Lambert72ToWgs84(double x, double y)
         {
             double newLongitude, newLatitude;
 
             const double n = 0.77164219;
-            const double F = 1.81329763;
+            const double f = 1.81329763;
             const double thetaFudge = 0.00014204;
             const double e = 0.08199189;
             const int a = 6378388;
@@ -66,7 +66,7 @@ namespace Wikipedia2Street
 
             for (var i = 0; i < 5; ++i)
             {
-                newLatitude = (2 * Math.Atan(Math.Pow(F * a / rho, 1 / n) *
+                newLatitude = (2 * Math.Atan(Math.Pow(f * a / rho, 1 / n) *
                                              Math.Pow((1 + e * Math.Sin(newLatitude)) / (1 - e * Math.Sin(newLatitude)),
                                                  e / 2))) - Math.PI / 2;
             }

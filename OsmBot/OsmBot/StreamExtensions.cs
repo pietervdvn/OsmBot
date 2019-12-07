@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using OsmSharp;
 using OsmSharp.Complete;
+// ReSharper disable PossibleInvalidOperationException
 
-namespace Wikipedia2Street
+namespace OsmBot
 {
     public static class StreamExtensions
     {
@@ -25,20 +26,21 @@ namespace Wikipedia2Street
 
             if (!string.IsNullOrEmpty(oldValue))
             {
-                if (!oldValue.ToLower().Equals(value.ToLower()))
+                if (!oldValue.Equals(value))
                 {
                     // Hmm, our mechanical edit would like to change something - lets warn for this; human interaction is needed
-                    throw new ArgumentException($"Warning for object {geo}: not overriding tag {key}={oldValue} with {value}");
+                    throw new ArgumentException(
+                        $"Warning for object {geo}: not overriding tag {key}={oldValue} with {value}");
                 }
 
                 // The tag already exists! We don't do anything
                 return;
             }
+
             geo.Tags.Add(key, value);
         }
-        
-        
-        
+
+
         public static EasyChangeset AddWikipediaTagsToStreets(this IEnumerable<ICompleteOsmGeo> completeSource)
         {
             var cs = new EasyChangeset();
@@ -46,6 +48,31 @@ namespace Wikipedia2Street
             completeSource.OnEveryUnclosedWay(wikiOnStreet.ApplyWikipediaTag);
             return cs;
         }
+
+
+        public static (double minLat, double maxLat, double minLon, double maxLon) BoundingBox(
+            this IEnumerable<ICompleteOsmGeo> completeSource)
+        {
+            var minLat = double.MaxValue;
+            var minLon = double.MaxValue;
+            var maxLat = double.MinValue;
+            var maxLon = double.MinValue;
+            completeSource.OnEveryObject((osmGeo) =>
+            {
+                if (osmGeo is Node n)
+                {
+                    var lat = n.Latitude;
+                    minLat = Math.Min(minLat, lat.Value);
+                    maxLat = Math.Max(maxLat, lat.Value);
+
+                    var lon = n.Longitude;
+                    minLon = Math.Min(minLon, lon.Value);
+                    maxLon = Math.Max(maxLon, lon.Value);
+                }
+            });
+            return (minLat, maxLat, minLon, maxLon);
+        }
+
         public static EasyChangeset AddWikidataToAll(this IEnumerable<ICompleteOsmGeo> completeSource)
         {
             var cs = new EasyChangeset();
@@ -53,6 +80,7 @@ namespace Wikipedia2Street
             completeSource.OnEveryObject(wikiOnStreet.AddWikidata);
             return cs;
         }
+
         public static void OnEveryObject(this IEnumerable<ICompleteOsmGeo> completeSource,
             Action<ICompleteOsmGeo> action)
         {

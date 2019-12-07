@@ -7,7 +7,7 @@ using OsmSharp.Complete;
 using OsmSharp.IO.Xml;
 using OsmSharp.Streams;
 
-namespace Wikipedia2Street
+namespace OsmBot
 {
     public class EasyChangeset
     {
@@ -15,7 +15,7 @@ namespace Wikipedia2Street
         private List<ICompleteOsmGeo> modifiedComplete = new List<ICompleteOsmGeo>();
 
 
-        public void AddChange (ICompleteOsmGeo geo)
+        public void AddChange(ICompleteOsmGeo geo)
         {
             modifiedComplete.Add(geo);
             switch (geo)
@@ -51,33 +51,32 @@ namespace Wikipedia2Street
             };
         }
 
-     
 
         public void WriteOsmTo(string path)
         {
             using (var outStream = File.OpenWrite(path))
             {
-              var outstream =  new XmlOsmStreamTarget(outStream);
-              foreach (var m in modifiedComplete)
-              {
-                  switch (m)
-                  {
-                      case CompleteWay w:
+                var outstream = new XmlOsmStreamTarget(outStream);
+                foreach (var m in modifiedComplete)
+                {
+                    switch (m)
+                    {
+                        case CompleteWay w:
 
-                          foreach (var n in w.Nodes)
-                          {
-                              outstream.AddNode(n);
-                          }
-                          
-                          outstream.AddWay((Way) w.ToSimple());
-                          break;
-                      case Node n:
-                          modified.Add(n);
-                          break;
-                      case CompleteRelation r:
-                          throw new Exception($"Unknown type: {r}");
-                  }
-              }
+                            foreach (var n in w.Nodes)
+                            {
+                                outstream.AddNode(n);
+                            }
+
+                            outstream.AddWay((Way) w.ToSimple());
+                            break;
+                        case Node n:
+                            modified.Add(n);
+                            break;
+                        case CompleteRelation r:
+                            throw new Exception($"Unknown type: {r}");
+                    }
+                }
             }
         }
     }

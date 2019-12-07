@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using OsmSharp.Complete;
 
-namespace Wikipedia2Street
+namespace OsmBot
 {
     /// <summary>
     /// Fetches the wikipedia tag, fetches the wikidata tag

@@ -1,0 +1,222 @@
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'Microsoft.AspNet.Razor 3.2.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'Microsoft.AspNet.WebPages 3.2.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'NetTopologySuite.IO 1.14.0.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'OsmSharp.API 0.12.0-alpha' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/usr/share/dotnet/sdk/2.2.402/Sdks/Microsoft.NET.Sdk/targets/Microsoft.NET.Sdk.DefaultItems.targets(153,5): warning NETSDK1071: A PackageReference to 'Microsoft.AspNetCore.All' specified a Version of `2.2.0`. Specifying the version of this package is not recommended. For more information, see https://aka.ms/sdkimplicitrefs [/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj]
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'Microsoft.AspNet.Razor 3.2.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'Microsoft.AspNet.WebPages 3.2.3' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'Microsoft.Web.Infrastructure 1.0.0' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'NetTopologySuite.IO 1.14.0.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+/home/pietervdvn/git/OsmBot/OsmBot/OsmBot/OsmBot.csproj : warning NU1701: Package 'OsmSharp.API 0.12.0-alpha' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.2'. This package may not be fully compatible with your project.
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB10.osm 10
+Starting...https://osm.org/api/0.6/map?bbox=3.20272040044583,51.2132082052162,3.21240160044719,51.2163584052161
+Found 580 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=532945133. Putting a fixme instead: grb: 1 != osm 2
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=532945149. Putting a fixme instead: grb: 2 != osm 1
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=512660435. Putting a fixme instead: grb: Kanunnik Van Hoonackerstraat != osm Kan. van Hoonackerstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=512660451. Putting a fixme instead: grb: Kanunnik Van Hoonackerstraat != osm Kan. van Hoonackerstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511826269. Putting a fixme instead: grb:  != osm 41
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=511359879. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511359915. Putting a fixme instead: grb: 3A != osm 3
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=147125415. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+Conflated 446
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB7.osm 7
+Starting...https://osm.org/api/0.6/map?bbox=3.2068348004464,51.2141700052165,3.21654720044775,51.2164522052165
+Found 356 osm buildings
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=511359879. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=147125415. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511318155. Putting a fixme instead: grb:  != osm 105
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510569085. Putting a fixme instead: grb:  != osm 5
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511359915. Putting a fixme instead: grb: 3A != osm 3
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160930566. Putting a fixme instead: grb:  != osm 69
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160913190. Putting a fixme instead: grb: 149A-149B != osm 149
+Conflated 228
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB4.osm 4
+Starting...https://osm.org/api/0.6/map?bbox=3.21161840044708,51.2172762052164,3.21962840044816,51.2199350052162
+Found 674 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481034. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481030. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481026. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481032. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481029. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481035. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481027. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481031. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: 11 != osm 17
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: Dirk Boutsstraat != osm Zwaluwenstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854861. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854898. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854914. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510863060. Putting a fixme instead: grb: 19;21 != osm 19, 21
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146620163. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511306721. Putting a fixme instead: grb:  != osm 51
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=364436881. Putting a fixme instead: grb: 29;33 != osm 29;31;33
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510297677. Putting a fixme instead: grb:  != osm 104
+Conflated 517
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB3.osm 3
+Starting...https://osm.org/api/0.6/map?bbox=3.21161840044708,51.2172762052164,3.21958190044817,51.2195857052162
+Found 650 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: 11 != osm 17
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: Dirk Boutsstraat != osm Zwaluwenstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854861. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510863060. Putting a fixme instead: grb: 19;21 != osm 19, 21
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481034. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481030. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481026. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481032. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481029. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481035. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481027. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481031. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854898. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854914. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146620163. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511306721. Putting a fixme instead: grb:  != osm 51
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510297677. Putting a fixme instead: grb:  != osm 104
+Conflated 441
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB2.osm 2
+Starting...https://osm.org/api/0.6/map?bbox=3.21419610044746,51.2176305052162,3.2197417004482,51.2182198052163
+Found 190 osm buildings
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854861. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+Conflated 74
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB8.osm 8
+Starting...https://osm.org/api/0.6/map?bbox=3.20535470044622,51.211989705216,3.21529430044753,51.2142160052164
+Found 498 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160699237. Putting a fixme instead: grb: 51 != osm 50
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160699241. Putting a fixme instead: grb: 50 != osm 49
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160699240. Putting a fixme instead: grb: 49 != osm 48
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696962. Putting a fixme instead: grb: 33A != osm 33
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696965. Putting a fixme instead: grb: 33 != osm 32
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696963. Putting a fixme instead: grb: 32 != osm 31
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511344842. Putting a fixme instead: grb:  != osm 2
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511344855. Putting a fixme instead: grb: 4B != osm 4
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511344854. Putting a fixme instead: grb: 4A != osm 4
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934246. Putting a fixme instead: grb: 34 != osm 35
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934247. Putting a fixme instead: grb: 35 != osm 36
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934240. Putting a fixme instead: grb: 36 != osm 37
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934237. Putting a fixme instead: grb: 37 != osm 38
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934249. Putting a fixme instead: grb: 38 != osm 39
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160933512. Putting a fixme instead: grb: 40-41 != osm 41
+Conflated 394
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB0.osm 0
+Starting...https://osm.org/api/0.6/map?bbox=3.21602890044766,51.2189542052165,3.22475430044889,51.2219856052162
+Found 332 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=364436881. Putting a fixme instead: grb: 29;33 != osm 29;31;33
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016602. Putting a fixme instead: grb: 63-64 != osm 63;64
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016610. Putting a fixme instead: grb:  != osm 35
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146614337. Putting a fixme instead: grb: Nikolaas Gombertstraat != osm Leopold II-laan
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016632. Putting a fixme instead: grb: 43;45 != osm 43
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016637. Putting a fixme instead: grb: 3B != osm 3
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016635. Putting a fixme instead: grb:  != osm 45
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510006947. Putting a fixme instead: grb:  != osm 123
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016604. Putting a fixme instead: grb:  != osm 3
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=509680212. Putting a fixme instead: grb:  != osm 31
+Conflated 135
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB9.osm 9
+Starting...https://osm.org/api/0.6/map?bbox=3.20470450044608,51.2111697052162,3.21529430044753,51.2142160052164
+Found 574 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160699237. Putting a fixme instead: grb: 51 != osm 50
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160699241. Putting a fixme instead: grb: 50 != osm 49
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160699240. Putting a fixme instead: grb: 49 != osm 48
+PANIC for grb object POLYGON ((3.2065137004463904 51.211450905215941, 3.2068108004463891 51.211433305216062, 3.2068233004464366 51.211518805215931, 3.2065264004463643 51.2115360052164, 3.2065137004463904 51.211450905215941))
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696962. Putting a fixme instead: grb: 33A != osm 33
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696965. Putting a fixme instead: grb: 33 != osm 32
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696963. Putting a fixme instead: grb: 32 != osm 31
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511354125. Putting a fixme instead: grb:  != osm 7B
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696310. Putting a fixme instead: grb:  != osm 7
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160696309. Putting a fixme instead: grb:  != osm 6
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511344842. Putting a fixme instead: grb:  != osm 2
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511344855. Putting a fixme instead: grb: 4B != osm 4
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511344854. Putting a fixme instead: grb: 4A != osm 4
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=161156245. Putting a fixme instead: grb: 26 != osm 25
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934271. Putting a fixme instead: grb: 123 != osm 28
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=160934271. Putting a fixme instead: grb: Beenhouwersstraat != osm Gulden-Vlieslaan
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934248. Putting a fixme instead: grb: 33 != osm 34
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934246. Putting a fixme instead: grb: 34 != osm 35
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934247. Putting a fixme instead: grb: 35 != osm 36
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934240. Putting a fixme instead: grb: 36 != osm 37
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934237. Putting a fixme instead: grb: 37 != osm 38
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160934249. Putting a fixme instead: grb: 38 != osm 39
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=162442961. Putting a fixme instead: grb: 112 != osm 114
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=160933512. Putting a fixme instead: grb: 40-41 != osm 41
+Conflated 424
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB6.osm 6
+Starting...https://osm.org/api/0.6/map?bbox=3.20877570044667,51.2152787052163,3.21663710044774,51.2182988052161
+Found 545 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524588. Putting a fixme instead: grb: 11 != osm 9
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: 11 != osm 17
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: Dirk Boutsstraat != osm Zwaluwenstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510863060. Putting a fixme instead: grb: 19;21 != osm 19, 21
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=511359879. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=147125415. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511359836. Putting a fixme instead: grb: 1D != osm 1
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=511359916. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=147125411. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=147125413. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511318155. Putting a fixme instead: grb:  != osm 105
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=147039008. Putting a fixme instead: grb: 20 != osm 18
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510569085. Putting a fixme instead: grb:  != osm 5
+Conflated 345
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB5.osm 5
+Starting...https://osm.org/api/0.6/map?bbox=3.20723140044647,51.2172480052164,3.21537370044755,51.2199788052166
+Found 302 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524422. Putting a fixme instead: grb: 10-14 != osm 10;12;14
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=511524422. Putting a fixme instead: grb: Houtkaai != osm Joe Englishstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524577. Putting a fixme instead: grb:  != osm 8
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524588. Putting a fixme instead: grb: 11 != osm 9
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511362506. Putting a fixme instead: grb:  != osm 3
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511362527. Putting a fixme instead: grb: 67 != osm 61-67
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511362518. Putting a fixme instead: grb:  != osm 45-51
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511362498. Putting a fixme instead: grb: 45;47;49;51 != osm 45-51
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511306667. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481034. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481030. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481026. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481032. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481029. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481035. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481027. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=176481031. Putting a fixme instead: grb:  != osm 56
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: 11 != osm 17
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146620174. Putting a fixme instead: grb: Dirk Boutsstraat != osm Zwaluwenstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854861. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854898. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510854914. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510863060. Putting a fixme instead: grb: 19;21 != osm 19, 21
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=146620163. Putting a fixme instead: grb: Dirk Boutsstraat != osm Dirk Boutstraat
+Conflated 184
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB11.osm 11
+Starting...https://osm.org/api/0.6/map?bbox=3.20173770044571,51.2152787052163,3.21183310044708,51.2191280052165
+Found 526 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524434. Putting a fixme instead: grb:  != osm 44;46;48;50
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524422. Putting a fixme instead: grb: 10-14 != osm 10;12;14
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=511524422. Putting a fixme instead: grb: Houtkaai != osm Joe Englishstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524419. Putting a fixme instead: grb: 10A != osm 10
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524577. Putting a fixme instead: grb:  != osm 8
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511524588. Putting a fixme instead: grb: 11 != osm 9
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=511359879. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=147125415. Putting a fixme instead: grb: Gustave Vincke-Dujardinstraat != osm Gustave Vincke Dujardinstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511362527. Putting a fixme instead: grb: 67 != osm 61-67
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511362518. Putting a fixme instead: grb:  != osm 45-51
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511362498. Putting a fixme instead: grb: 45;47;49;51 != osm 45-51
+Conflated 288
+Handling /home/pietervdvn/git/OsmBot/OsmBot/OsmBot/GRB1.osm 1
+Starting...https://osm.org/api/0.6/map?bbox=3.21556120044763,51.2178709052163,3.22354740044871,51.2203840052161
+Found 596 osm buildings
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=364436881. Putting a fixme instead: grb: 29;33 != osm 29;31;33
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016602. Putting a fixme instead: grb: 63-64 != osm 63;64
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016610. Putting a fixme instead: grb:  != osm 35
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016632. Putting a fixme instead: grb: 43;45 != osm 43
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510016635. Putting a fixme instead: grb:  != osm 45
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510006947. Putting a fixme instead: grb:  != osm 123
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=509680212. Putting a fixme instead: grb:  != osm 31
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=511306721. Putting a fixme instead: grb:  != osm 51
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510297677. Putting a fixme instead: grb:  != osm 104
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=510013672. Putting a fixme instead: grb: 17 != osm 105
+GRB and OSM disagree over streetname of http://www.openstreetmap.org/?way=510013672. Putting a fixme instead: grb: Nikolaas Gombertstraat != osm Werfstraat
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=147135170. Putting a fixme instead: grb:  != osm 13
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=509033188. Putting a fixme instead: grb:  != osm 2
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=509097700. Putting a fixme instead: grb: 3;3B != osm 1, 3
+GRB and OSM disagree over housenumber of http://www.openstreetmap.org/?way=468392068. Putting a fixme instead: grb:  != osm 69
+Conflated 456
