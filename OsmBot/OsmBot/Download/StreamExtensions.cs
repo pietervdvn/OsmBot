@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using NetTopologySuite.Geometries;
+using OsmBot.WikipediaTools;
 using OsmSharp;
 using OsmSharp.Complete;
+
 // ReSharper disable PossibleInvalidOperationException
 
-namespace OsmBot
+namespace OsmBot.Download
 {
     public static class StreamExtensions
     {
@@ -50,7 +53,7 @@ namespace OsmBot
         }
 
 
-        public static (double minLat, double maxLat, double minLon, double maxLon) BoundingBox(
+        public static Rect BoundingBox(
             this IEnumerable<ICompleteOsmGeo> completeSource)
         {
             var minLat = double.MaxValue;
@@ -70,7 +73,7 @@ namespace OsmBot
                     maxLon = Math.Max(maxLon, lon.Value);
                 }
             });
-            return (minLat, maxLat, minLon, maxLon);
+            return new Rect(new Point(minLon, minLat), new Point(maxLon, maxLat));
         }
 
         public static EasyChangeset AddWikidataToAll(this IEnumerable<ICompleteOsmGeo> completeSource)

@@ -1,6 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using OsmBot.Download;
+using OsmSharp.Complete;
+using OsmSharp.Streams;
 
 namespace OsmBot
 {
@@ -11,56 +16,36 @@ namespace OsmBot
     {
         private static readonly HttpClient _client = new HttpClient();
 
-        public static void DownloadTo(string path,
-            string left, string bottom, string right, string top)
+        public static string Download(Rect r)
         {
-            var url = $"https://osm.org/api/0.6/map?bbox={left},{bottom},{right},{top}";
-            Console.WriteLine(url);
-            var response = _client.GetAsync("http://www.contoso.com/").Result;
-            response.EnsureSuccessStatusCode();
-            var responseBody = _client.GetStringAsync(url).Result;
-            File.WriteAllText(path, responseBody);
-        }
-
-        public static string Download(double left, double bottom, double right, double top)
-        {
-            var url = $"https://osm.org/api/0.6/map?bbox={left},{bottom},{right},{top}";
-            Console.WriteLine(url);
-            var response = _client.GetAsync("http://www.contoso.com/").Result;
+            var url = $"https://osm.org/api/0.6/map?bbox={r.Min.X},{r.Min.Y},{r.Max.X},{r.Max.Y}";
+            Console.WriteLine("Downloading " + url);
+            var response = _client.GetAsync(url).Result;
             response.EnsureSuccessStatusCode();
             return _client.GetStringAsync(url).Result;
         }
 
-
-
-        public static void OpenJosmWithOSM(string left, string bottom, string right,string top)
+        public static IEnumerable<ICompleteOsmGeo> DownloadStream(Rect r)
         {
-            _client.GetAsync(
-                $"http://127.0.0.1:8111/load_and_zoom?new_layer=true&layer_name=OSM&" +
-                $"left={left}&right={right}&top={top}&bottom={bottom}");
-
+            var data = Download(r);
+            return new XmlOsmStreamSource(GenerateStreamFromString(data)).ToComplete();
         }
-        
-        public static void OpenJosmZoomTo(string left, string bottom, string right,string top)
+
+        public static Stream GenerateStreamFromString(string s)
         {
-            _client.GetAsync(
-                $"http://127.0.0.1:8111/zoom?new_layer=true&layer_name=OSM&" +
-                $"left={left}&right={right}&top={top}&bottom={bottom}");
-
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(s);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
-        
-        public static void OpenJosmFile(string path)
-        {
-            _client.GetAsync(
-                $"http://127.0.0.1:8111/open_file?filename={path}");
 
-        }
-     
+
         public static void Upload(string changesetPath, string comment)
         {
             // var testEndpoint = "https://master.apis.dev.openstreetmap.org";
             var endpoint = "https://openstreetmap.org";
-
 
 
             var urlCreate = endpoint + "/api/0.6/changeset/create";
@@ -104,6 +89,4 @@ namespace OsmBot
             _client.PutAsync(urlClose, new StringContent(""));
         }
     }
-
-
 }

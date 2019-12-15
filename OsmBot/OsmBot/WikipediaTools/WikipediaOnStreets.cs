@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using OsmBot.Download;
 using OsmSharp.Complete;
 
-namespace OsmBot
+namespace OsmBot.WikipediaTools
 {
     /// <summary>
     /// Adds a wikipedia tag onto streets of Bruges, based on a published list on wikipedia itself:

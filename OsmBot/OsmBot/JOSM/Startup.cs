@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 
-namespace OsmBot
+namespace OsmBot.JOSM
 {
     public class Startup
     {
@@ -32,6 +37,37 @@ namespace OsmBot
 
             app.UseMvc();
             app.UseCors("AllowAllOrigins");
+        }
+    }
+    
+    
+    public class JsonTextFormatter : TextOutputFormatter
+    {
+        public JsonTextFormatter()
+        {
+            SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
+            SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/javascript"));
+            SupportedEncodings.Add(Encoding.UTF8);
+            SupportedEncodings.Add(Encoding.Unicode);
+        }
+
+        protected override bool CanWriteType(Type type)
+        {
+            return true;
+        }
+
+        public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+        {
+            if (context.Object is string s)
+            {
+                using (var stream = new StreamWriter(context.HttpContext.Response.Body))
+                {
+                    stream.Write(s);
+                    return Task.CompletedTask;
+                }
+            }
+
+            throw new Exception("Wut?");
         }
     }
 }

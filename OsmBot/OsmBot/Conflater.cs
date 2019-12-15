@@ -1,24 +1,17 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using NetTopologySuite.Geometries;
+using OsmBot.Download;
 using OsmSharp.Complete;
-using OsmSharp.Streams;
-using OsmSharp.Streams.Complete;
 using OsmSharp.Tags;
 
 namespace OsmBot
 {
-    public class Conflater
+    public static class Conflater
     {
-        private readonly OsmCompleteStreamSource _osmStreamComplete;
-        private readonly OsmCompleteStreamSource _grbStreamComplete;
-
-        public Conflater(OsmCompleteStreamSource osmStreamComplete, OsmCompleteStreamSource grbStreamComplete)
-        {
-            _osmStreamComplete = osmStreamComplete;
-            _grbStreamComplete = grbStreamComplete;
-        }
+       
 
 
         private static Polygon ToPolygon(CompleteWay w)
@@ -159,16 +152,16 @@ namespace OsmBot
             return true;
         }
 
-        public EasyChangeset Conflate()
+        public static EasyChangeset Conflate(IEnumerable<ICompleteOsmGeo> osmStreamComplete, List<(Polygon, TagsCollection)> grbBuildings)
         {
             var cs = new EasyChangeset();
-            var leftOvers = new List<CompleteWay>();
+            var leftOvers = new List<(Polygon grbPoly, TagsCollection grbTags)>();
 
             var osmBuildings = new List<(Polygon, CompleteWay way)>();
 
             var count = 0;
 
-            foreach (var osmGeo in _osmStreamComplete)
+            foreach (var osmGeo in osmStreamComplete)
             {
                 if (!(osmGeo is CompleteWay w))
                 {
@@ -204,21 +197,8 @@ namespace OsmBot
 
             var dirty = new HashSet<CompleteWay>();
 
-            foreach (var grbGeo in _grbStreamComplete)
+            foreach (var (grbPoly, grbTags) in grbBuildings)
             {
-                if (!(grbGeo is CompleteWay w))
-                {
-                    continue;
-                }
-
-                if (!w.IsClosed())
-                {
-                    continue;
-                }
-
-
-                var grbTags = w.Tags;
-                var grbPoly = ToPolygon(w);
 
                 var conflated = false;
 
@@ -242,14 +222,10 @@ namespace OsmBot
 
                 if (!conflated)
                 {
-                    leftOvers.Add(w);
+                    leftOvers.Add((grbPoly, grbTags));
                 }
 
 
-                if (count >= 1000)
-                {
-                    break;
-                }
             }
 
             Console.WriteLine("Conflated " + count);
@@ -257,37 +233,6 @@ namespace OsmBot
             return cs;
         }
 
-        public static Stream GenerateStreamFromString(string s)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(s);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
-        }
 
-        public static void RunConflation(string data, int i)
-        {
-            Console.Write("Starting...");
-
-
-            using (var grbStream = GenerateStreamFromString(data))
-            {
-                var grbStreamComplete = new XmlOsmStreamSource(grbStream).ToComplete();
-                var (minLat, maxLat, minLon, maxLon) = grbStreamComplete.BoundingBox();
-                grbStreamComplete.Reset();
-
-                using (var osmStream = GenerateStreamFromString(
-                    Osm.Download(minLon, minLat, maxLon, maxLat)))
-                {
-                    var osmStreamComplete = new XmlOsmStreamSource(osmStream);
-                    var conflater = new Conflater(osmStreamComplete.ToComplete(), grbStreamComplete);
-
-                    var cs = conflater.Conflate();
-                    cs.WriteChangeTo($"Conflation{i}.osc");
-                }
-            }
-        }
     }
 }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using OsmBot.Download;
 using OsmSharp.Complete;
 
-namespace OsmBot
+namespace OsmBot.WikipediaTools
 {
     /// <summary>
     /// Fetches the wikipedia tag, fetches the wikidata tag
