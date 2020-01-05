@@ -213,38 +213,19 @@ namespace OsmBot
                     {
                         // Already from GRB or conflated - but might have a wrong format!
 
-                        if (grbTags.TryGetValue("source:geometry:ref:wrong", out var wrongRef))
-                        {
-                            if (oldRef.Equals(wrongRef))
-                            {
-                                // this thing has a wrong reference
-                                osmTags.Tags.RemoveKey("source:geometry:ref");
-                                var goodRef = grbTags["source:geometry:ref"];
-                                osmTags.Tags.Add("source:geometry:ref", goodRef);
-                                cs.AddChange(osmTags);
-                                Console.WriteLine($"Corrected GRB tag: {wrongRef} -> {goodRef}");
-                                
-                                count++;
-                                conflated = true;
-                                
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"NF {grbTags}");
-                        }
+                        continue;
                     }
 
 
-                  /*  if (!AttemptConflate(grbPoly, osmBuilding, grbTags, osmTags, cs))
+                    if (!AttemptConflate(grbPoly, osmBuilding, grbTags, osmTags, cs))
                     {
                         continue;
                     }
 
+                    count++;
+                    conflated = true;
                     dirty.Add(osmTags);
-                    */
-                    
+
                     continue;
                 }
 
