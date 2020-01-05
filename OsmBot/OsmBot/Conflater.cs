@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using NetTopologySuite.Geometries;
 using OsmBot.Download;
 using OsmSharp.Complete;
@@ -11,9 +9,6 @@ namespace OsmBot
 {
     public static class Conflater
     {
-       
-
-
         private static Polygon ToPolygon(CompleteWay w)
         {
             var coordinates = new Coordinate[w.Nodes.Length];
@@ -67,7 +62,11 @@ namespace OsmBot
                 else
                 {
                     grbTags.TryGetValue("building", out var grbBuildingValue);
-                    if (osmBuildingValue != grbBuildingValue)
+                    if (grbBuildingValue == null)
+                    {
+                        Console.WriteLine("GRB Building value is null");
+                    }
+                    else if (osmBuildingValue != grbBuildingValue)
                     {
                         if (!grbBuildingValue.Equals("yes"))
                         {
@@ -138,6 +137,11 @@ namespace OsmBot
             {
                 foreach (var grbTag in grbTags)
                 {
+                    if (grbTag.Key.Contains("wrong"))
+                    {
+                        continue;
+                    }
+
                     osmObj.AddNewTag(grbTag.Key, grbTag.Value);
                 }
 
@@ -152,7 +156,9 @@ namespace OsmBot
             return true;
         }
 
-        public static EasyChangeset Conflate(IEnumerable<ICompleteOsmGeo> osmStreamComplete, List<(Polygon, TagsCollection)> grbBuildings)
+
+        public static EasyChangeset Conflate(IEnumerable<ICompleteOsmGeo> osmStreamComplete,
+            List<(Polygon, TagsCollection)> grbBuildings)
         {
             var cs = new EasyChangeset();
             var leftOvers = new List<(Polygon grbPoly, TagsCollection grbTags)>();
@@ -183,11 +189,6 @@ namespace OsmBot
                     continue;
                 }
 
-                if (w.Tags.TryGetValue("source:geometry:ref", out _))
-                {
-                    // Already from GRB or conflated - skip!
-                    continue;
-                }
 
                 osmBuildings.Add((ToPolygon(w), w));
             }
@@ -199,7 +200,6 @@ namespace OsmBot
 
             foreach (var (grbPoly, grbTags) in grbBuildings)
             {
-
                 var conflated = false;
 
                 foreach (var (osmBuilding, osmTags) in osmBuildings)
@@ -209,30 +209,54 @@ namespace OsmBot
                         continue;
                     }
 
-                    if (!AttemptConflate(grbPoly, osmBuilding, grbTags, osmTags, cs))
+                    if (osmTags.Tags.TryGetValue("source:geometry:ref", out var oldRef))
+                    {
+                        // Already from GRB or conflated - but might have a wrong format!
+
+                        if (grbTags.TryGetValue("source:geometry:ref:wrong", out var wrongRef))
+                        {
+                            if (oldRef.Equals(wrongRef))
+                            {
+                                // this thing has a wrong reference
+                                osmTags.Tags.RemoveKey("source:geometry:ref");
+                                var goodRef = grbTags["source:geometry:ref"];
+                                osmTags.Tags.Add("source:geometry:ref", goodRef);
+                                cs.AddChange(osmTags);
+                                Console.WriteLine($"Corrected GRB tag: {wrongRef} -> {goodRef}");
+                                
+                                count++;
+                                conflated = true;
+                                
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"NF {grbTags}");
+                        }
+                    }
+
+
+                  /*  if (!AttemptConflate(grbPoly, osmBuilding, grbTags, osmTags, cs))
                     {
                         continue;
                     }
 
                     dirty.Add(osmTags);
-                    count++;
-                    conflated = true;
-                    break;
+                    */
+                    
+                    continue;
                 }
 
                 if (!conflated)
                 {
                     leftOvers.Add((grbPoly, grbTags));
                 }
-
-
             }
 
             Console.WriteLine("Conflated " + count);
 
             return cs;
         }
-
-
     }
 }

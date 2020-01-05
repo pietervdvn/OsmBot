@@ -18,6 +18,16 @@ namespace OsmBot.Download
             var response = _client.GetAsync(url).Result;
             response.EnsureSuccessStatusCode();
             var data = _client.GetStringAsync(url).Result;
+            
+            
+            while (data.StartsWith("<b"))
+            {
+                data =
+                    data.Substring(data.IndexOf("\n") + 1);
+            }
+
+            
+            
             var geojson = JObject.Parse(data);
             foreach (var feature in (JArray) geojson["features"])
             {

@@ -44,6 +44,7 @@ namespace OsmBot.Download
 
         public static Rect FromGeoJson(string geoJsonContents)
         {
+
             var jobj = JObject.Parse(geoJsonContents);
             var coordinates = jobj["features"][0]["geometry"]["coordinates"][0];
             var minLat = Double.MaxValue;
