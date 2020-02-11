@@ -34,6 +34,13 @@ function initializeMap() {
             minZoom: 1
         });
 
+    var toner = L.tileLayer("http://b.tile.stamen.com/toner/{z}/{x}/{y}.png",
+        {
+            attribution: 'Map Data and background © <a href="osm.org">OpenStreetMap</a> | Tiles are Toner by Stamen',
+            maxZoom: 21,
+            minZoom: 1
+        });
+    
     var grbLayer = L.tileLayer("https://tile.informatievlaanderen.be/ws/raadpleegdiensten/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=grb_bsk&STYLE=&FORMAT=image/png&tileMatrixSet=GoogleMapsVL&tileMatrix={z}&tileCol={x}&tileRow={y}",
         {
             attribution: 'Map Data   <a href="osm.org">OpenStreetMap</a> | Background <i>Grootschalig ReferentieBestand</i>(GRB) © AGIV',
@@ -48,7 +55,8 @@ function initializeMap() {
         "OpenStreetMap Be": osmBeLayer,
         "OpenStreetMap": osmLayer,
         "Luchtfoto AIV Vlaanderen": wmsLayer,
-        "GRB Vlaanderen": grbLayer
+        "GRB Vlaanderen": grbLayer,
+        "Toner": toner
     };
 
     var urlParams = new URLSearchParams(window.location.search);
