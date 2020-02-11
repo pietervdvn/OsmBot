@@ -1,0 +1,5 @@
+OsmBot/OsmBot/bin/**
+OsmBot/OsmBot/obj/**
+OsmBot/.idea/**
+OsmBot/OsmBot/account.txt
+OsmBot/OsmBot/Passwords.cs

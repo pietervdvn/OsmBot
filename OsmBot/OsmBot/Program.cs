@@ -1,24 +1,58 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using OsmBot.Download;
+using OsmBot.WikipediaTools;
 
 namespace OsmBot
 {
     internal static class Program
-    {
-        public static void Main(string[] args)
+    { public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>();
+        public static async Task Main(string[] args)
         {
-            var i = 0;
-            var fullOutline = GenerateOutline(
-                "3.164", "3.238", "51.162", "51.213");
-
-            Console.WriteLine(fullOutline);
-            for (var lon = 100; lon < 180; lon += 10)
+            if (args[0].Equals("--api"))
             {
-                for (var lat = 150; lat < 225; lat += 25)
+                Console.WriteLine("Starting api");
+                
+                CreateWebHostBuilder(args).Build().Run();
+            
+                return;
+            }
+
+            if (args[0].Equals("--conflate"))
+            {
+                Console.WriteLine("Usage: minLon maxLon minLat maxLat");
+                var minLon = double.Parse(args[1]);
+                var maxLon = double.Parse(args[2]);
+                var minLat = double.Parse(args[3]);
+                var maxLat = double.Parse(args[4]);
+                ConflateBetween(minLon, maxLon, minLat, maxLat);
+                return;
+            }
+
+
+           
+        }
+
+        private static void ConflateBetween(double minLon, double maxLon, double minLat, double maxLat)
+        {
+            var minLonint = (int) (minLon * 1000);
+            var maxLonint = (int) (maxLon * 1000);
+            var minLatint = (int) (minLat * 1000);
+            var maxLatint = (int) (maxLat * 1000);
+
+            Console.WriteLine("Conflation between: lon ");
+
+            for (var lon = minLonint; lon < maxLonint; lon += 10)
+            {
+                for (var lat = minLatint; lat < maxLatint; lat += 25)
                 {
                     var activeArea = Rect.FromGeoJson(
-                        GenerateOutline($"3.{lon}", $"3.{lon + 10}", $"51.{lat}", $"51.{lat + 25}")
-                    );
+                        GenerateOutline(ThreeDigits(lon), ThreeDigits(lon + 10),
+                            ThreeDigits(lat), ThreeDigits(lat + 25)));
 
 
                     var osmData = Osm.DownloadStream(activeArea);
@@ -33,8 +67,15 @@ namespace OsmBot
             }
         }
 
+        private static string ThreeDigits(int coordinate)
+        {
+            var beforeDot = coordinate / 1000;
+            var afterDot = coordinate % 1000;
+            return $"{beforeDot}.{afterDot:000}";
+        }
 
-        public static string GenerateOutline(string left, string right, string bottom, string top)
+
+        private static string GenerateOutline(string left, string right, string bottom, string top)
         {
             return
                 "{ \"type\": \"FeatureCollection\", \"features\": [ { \"type\": \"Feature\", \"properties\": {}, \"geometry\": { \"type\": \"Polygon\", \"coordinates\": [ [ " +

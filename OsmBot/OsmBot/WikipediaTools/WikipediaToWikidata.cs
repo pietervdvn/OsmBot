@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using OsmBot.Download;
-using OsmSharp.Complete;
 
 namespace OsmBot.WikipediaTools
 {
@@ -15,159 +14,191 @@ namespace OsmBot.WikipediaTools
     {
         static readonly HttpClient _client = new HttpClient();
 
-        private EasyChangeset _cs;
 
-        public WikipediaToWikidata(EasyChangeset cs)
+        private static Dictionary<string, string> _instanceOf = new Dictionary<string, string>
         {
-            _cs = cs;
-        }
+            {"Q5", "human"},
+            {"Q860861", "sculpture"},
+            {"Q79007", "street"},
+            {"Q2977", "cathedral"},
+            {"Q33506", "museum"},
+            {"Q12280", "bridge"},
+            {"Q174782", "square"},
+            {"Q5633421", "scientific_journal"},
+            {"Q11446", "ship"},
+            {"Q4167410", "disambiguation_page"},
+            {"Q1454597", "masonic_lodge"},
+            {"Q83620", "thoroughfare"},
+            {"Q42744322", "german_city"},
+            {"Q868557", "music festival"},
+            {"Q2785216", "municipality_section"},
+            {"Q20643955", "biblical_figure"}
+        };
 
-        public bool ShouldBeAStreet(string wikipedia, string label, string description)
+        public static string GetInstance(Dictionary<string, string> statements)
         {
-            if (wikipedia.EndsWith(" (Brugge)"))
+            if (!statements.ContainsKey("P31"))
             {
-                wikipedia = wikipedia.Substring(0, wikipedia.Length - 9);
+                return "";
             }
 
-            if (!wikipedia.ToLower().Equals(label.ToLower()))
+            var key = statements["P31"];
+            if (_instanceOf.ContainsKey(key))
             {
-                return true;
+                return _instanceOf[key];
             }
 
-            if (description.ToLower().Equals("street in bruges, belgium"))
-            {
-                return false;
-            }
-
-            if (description.Equals("square in Bruges, Belgium"))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static bool AlwaysSuspicious(string wikipedia, string label, string description)
-        {
-            return true;
-        }
-
-
-        public void AddWikidata(ICompleteOsmGeo geo)
-        {
-            if (geo.Tags == null)
-            {
-                return;
-            }
-
-            var wikipedia = geo.Tags.GetValue("wikipedia");
-            if (string.IsNullOrEmpty(wikipedia))
-            {
-                return;
-            }
-
-            var alreadyExistingWikidata = geo.Tags.GetValue("wikidata");
-            var wikidata = CachedFetch(wikipedia, alreadyExistingWikidata, AlwaysSuspicious);
-            if (string.IsNullOrEmpty(wikidata))
-            {
-                // Console.WriteLine("BEWARE: no wikidata found for " + geo);
-                return;
-            }
-
-            geo.AddNewTag("wikidata", wikidata);
-            _cs.AddChange(geo);
-        }
-
-        private Dictionary<string, string> _cache = new Dictionary<string, string>();
-
-        private string CachedFetch(string wikipedia, string alreadyExistingWikidata,
-            Func<string, string, string, bool> isSuspicious)
-        {
-            if (_cache.ContainsKey(wikipedia))
-            {
-                return _cache[wikipedia];
-            }
-
-
-            Console.Write($"\r{_cache.Count:000}\t");
             try
             {
-                return _cache[wikipedia] = FetchWikidata(wikipedia, alreadyExistingWikidata, isSuspicious).Result;
+                var metaStatement = Statements(key).Result.label;
+                Console.WriteLine("Trying to get statement " + key);
+                _instanceOf.Add(key, metaStatement);
+                Console.WriteLine("Instance https://www.wikidata.org/wiki/" + key + " turns out to be a " +
+                                  metaStatement);
+                return metaStatement;
             }
             catch (Exception e)
             {
-                Console.WriteLine($"ERROR for {wikipedia}: {e.Message}");
-                return null;
+                Console.WriteLine(e);
+                return "";
             }
         }
 
-        private async Task<string> FetchWikidata(string wikipedia, string alreadyExistingWikidata,
-            Func<string, string, string, bool> isSuspicious)
+        public static async Task<(Dictionary<string, string>, string label)> Statements(string wikidata)
         {
-            var split = wikipedia.Split(":");
-            if (split.Length != 2)
-            {
-                Console.WriteLine("Invalid wikipedia tag: " + wikipedia);
-                return null;
-            }
-
-            var language = split[0];
-            var title = split[1];
             var url =
-                "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&formatversion=2&languages=en&origin=*" +
-                $"&sites={language}wiki&titles={title}";
+                $"https://www.wikidata.org/w/api.php?action=wbgetentities&ids={wikidata}&format=json";
 
-            var response = await _client.GetAsync("http://www.contoso.com/");
+            var response = await _client.GetAsync(url);
             response.EnsureSuccessStatusCode();
             var responseBody = await _client.GetStringAsync(url);
 
-            var json = (JObject) JObject.Parse(responseBody)["entities"];
+            var root = JObject.Parse(responseBody)["entities"][wikidata];
+            var jsonClaims = root["claims"];
 
-            if (json.Count > 1)
-            {
-                Console.WriteLine("Ambigous occurence for " + wikipedia);
-                return null;
-            }
+            var json = (JObject) jsonClaims;
 
-            if (json.Count == 0)
-            {
-                Console.WriteLine("No entry found for " + wikipedia);
-            }
-
-
+            var claims = new Dictionary<string, string>();
             foreach (var kv in json)
             {
-                var q = kv.Key;
-
-                if (q.Equals(alreadyExistingWikidata))
-                {
-                    return q;
-                }
-
                 try
                 {
-                    var labels = kv.Value["labels"]["en"]["value"].Value<string>();
-                    var descr = kv.Value["descriptions"]["en"]["value"].Value<string>();
-                    Console.Write($"\r{wikipedia} --> {labels}; {descr}                          ");
-                    if (isSuspicious(title, labels, descr))
-                    {
-                        Console.WriteLine($"\r{wikipedia} has to be checked: description is {descr}");
-                    }
+                    var key = kv.Key;
+
+
+                    var value = kv.Value[0]["mainsnak"]["datavalue"]["value"]["id"].Value<string>();
+                    claims[key] = value;
+                }
+                catch (ArgumentNullException)
+                {
+                }
+                catch (InvalidOperationException)
+                {
                 }
                 catch (NullReferenceException)
                 {
-                    return null;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"\nERROR: {e.Message} for {wikipedia}");
-                    return null;
-                }
-
-                return q;
             }
 
-            return null;
+            try
+            {
+                var labels = root["labels"];
+                var label = "?";
+
+                foreach (var lb in labels.Children())
+                {
+                    if (label.Equals("?") || lb.First["language"].Value<string>().Equals("en"))
+                    {
+                        label = lb.First["value"].Value<string>();
+                    }
+                }
+
+                return (claims, label);
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine("While getting " + wikidata + "\n" + e);
+                return (claims, "?");
+            }
+        }
+
+        public static Dictionary<string, string> _genderCache = new Dictionary<string, string>();
+
+        public static string GetGender(string wikidata)
+        {
+            if (_genderCache.TryGetValue(wikidata, out var gender))
+            {
+                return gender;
+            }
+
+            return _genderCache[wikidata] = GetGenderRaw(wikidata).Result;
+        }
+
+        private static async Task<string> GetGenderRaw(string wikidata)
+        {
+            var statements = Statements(wikidata).Result.Item1;
+
+            if (statements.TryGetValue("P21", out var gender))
+            {
+                if (gender.Equals("Q6581097"))
+                {
+                    return "male";
+                }
+
+                if (gender.Equals("Q6581072"))
+                {
+                    return "female";
+                }
+            }
+
+            if (!statements.TryGetValue("P31", out var instance))
+            {
+                return "nonhuman";
+            }
+
+            if (!instance.Equals("Q5"))
+            {
+                return "nonhuman";
+            }
+
+            return "other";
+        }
+
+        public static async Task<List<Dictionary<string, string>>>
+            SearchWikidata(string search, string language)
+        {
+            search = search.Trim('-');
+            var url =
+                "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json" +
+                $"&search={search}&language={language}";
+
+            var response = await _client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            var responseBody = await _client.GetStringAsync(url);
+
+            var jsonObj = JObject.Parse(responseBody)["search"];
+
+            var json = (JArray) jsonObj;
+            if (json.Count == 0)
+            {
+                Console.WriteLine("No entry found for " + search);
+            }
+
+            var entries = new List<Dictionary<string, string>>();
+            foreach (var elem in json)
+            {
+                var values = new Dictionary<string, string>
+                {
+                    ["id"] = elem["id"].Value<string>(),
+                    ["label"] = elem["label"].Value<string>(),
+                    ["description"] = elem["description"]?.Value<string>()
+                };
+                var statements = (await Statements(values["id"])).Item1;
+                values["instanceOf"] = GetInstance(statements);
+                entries.Add(values);
+            }
+
+            return entries;
         }
     }
 }

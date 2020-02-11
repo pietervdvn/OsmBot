@@ -76,14 +76,6 @@ namespace OsmBot.Download
             return new Rect(new Point(minLon, minLat), new Point(maxLon, maxLat));
         }
 
-        public static EasyChangeset AddWikidataToAll(this IEnumerable<ICompleteOsmGeo> completeSource)
-        {
-            var cs = new EasyChangeset();
-            var wikiOnStreet = new WikipediaToWikidata(cs);
-            completeSource.OnEveryObject(wikiOnStreet.AddWikidata);
-            return cs;
-        }
-
         public static void OnEveryObject(this IEnumerable<ICompleteOsmGeo> completeSource,
             Action<ICompleteOsmGeo> action)
         {
