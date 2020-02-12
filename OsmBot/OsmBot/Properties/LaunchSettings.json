@@ -21,7 +21,8 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "status",
-      "applicationUrl": "http://localhost:8111",
+      "bindingInformation": "5000",
+      "applicationUrl": "http://192.168.88.253:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

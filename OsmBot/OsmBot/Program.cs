@@ -8,17 +8,20 @@ using OsmBot.WikipediaTools;
 namespace OsmBot
 {
     internal static class Program
-    { public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    {
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseUrls("http://178.116.192.153:5000");
+
         public static async Task Main(string[] args)
         {
             if (args[0].Equals("--api"))
             {
                 Console.WriteLine("Starting api");
-                
+
                 CreateWebHostBuilder(args).Build().Run();
-            
+
                 return;
             }
 
@@ -32,9 +35,6 @@ namespace OsmBot
                 ConflateBetween(minLon, maxLon, minLat, maxLat);
                 return;
             }
-
-
-           
         }
 
         private static void ConflateBetween(double minLon, double maxLon, double minLat, double maxLat)

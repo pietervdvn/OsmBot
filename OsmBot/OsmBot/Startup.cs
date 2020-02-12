@@ -29,9 +29,7 @@ namespace OsmBot
                 options.AddPolicy("AllowAnyOrigin",
                     builder => builder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET"));
             });
-
-
-          
+            
         }
         
 
@@ -75,6 +73,7 @@ namespace OsmBot
            
             app.UseMvc();
             app.UseCors("AllowAllOrigins");
+            
         }
 
       
