@@ -166,20 +166,6 @@
             let invOnrErf = 'https://inventaris.onroerenderfgoed.be/erfgoedobjecten?tekst=' + feature.properties.name;
             let irisMonument = 'http://www.irismonument.be/index.php?quick_search=' + feature.properties["name:nl"] + '&section=search&results=y&Submit=ok';
             layer.setStyle({color: "#ff0000", weight: 7});
-/*
-            console.log(feature);
-            var asPoint = GeoJsonTools.wayToPoint(feature);
-            console.log(asPoint);
-            var coor = asPoint.geometry.coordinates;
-            coor.reverse();
-            console.log(coor);
-            let textLabel = L.marker(coor, {
-                icon: L.divIcon({
-                    html: "<span class='text-labels'>" + feature.properties.name + "</span>",
-                }),
-                zIndexOffset: 1000     // Make appear above other map features
-            });
-            textLabel.addTo(map);//*/
 
             var popup = layer.bindPopup(
                 '<h1>' + feature.properties.name + '</h1>' +
@@ -191,7 +177,6 @@
                 '<div id="' + divId + '"></div><br/>' +
                 '<b>Other wikidata: </b><input type="text" id="' + fieldId + '" value=""/><button type="button" id="' + otherButtonId + '">Select other Wikidata</button><br/>' +
                 '<a target="_blank" href="https://osm.org/' + feature.id + '">Open on OpenStreetMap</a>');
-            textLabel.bindPopup(popup);
 
 
             layer.on("click", () => {
