@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OsmBot.Models;
 
 namespace OsmBot.WikipediaTools
 {
@@ -12,7 +13,8 @@ namespace OsmBot.WikipediaTools
         private static List<string> _endings = new List<string>
         {
             "straat", "dreef", "laan", "steenweg", "Steenweg", "plein", "plantsoen", "rei", "reitje", "heerweg",
-            "Heerweg", "weg", "kerkhof", "brug"
+            "Heerweg", "weg", "kerkhof", "brug",
+            "gatan"
         };
 
 
@@ -49,7 +51,7 @@ namespace OsmBot.WikipediaTools
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public async Task<List<(string id, string label, string description, string instanceOf)>> FetchEtymologyFor(
+        public async Task<List<WikidataEntry>> FetchEtymologyFor(
             string name)
         {
             if (!_cache.TryGetValue(name, out var entries))
@@ -66,7 +68,7 @@ namespace OsmBot.WikipediaTools
             Console.WriteLine(name + " --> \n   " + string.Join("\n   ", entries.Select(Print)));
 
             Console.WriteLine("\n\n\n");
-            return entries.Select(entry => (entry["id"], entry["label"], entry["description"], entry["instanceOf"]))
+            return entries.Select(entry => new WikidataEntry(entry["id"], entry["label"], entry["description"], entry["instanceOf"]))
                 .ToList();
         }
 

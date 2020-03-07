@@ -120,6 +120,11 @@
 
     function styleGeoJson(feature, layer) {
         let wd = feature.properties["name:etymology:wikidata"];
+        
+        if(wd === undefined){
+            wd = feature.properties["wikidata"];
+        }
+        
         if (wd !== undefined) {
             layer.setStyle({color: '#00000044'});
             layer.bindPopup('<h1>' + feature.properties.name + '</h1><p>This street is already matched and refers to <a href="https://www.wikidata.org/wiki/' + wd + '">' + wd + '</a></p>');
@@ -207,22 +212,57 @@
                     if (response === "") {
                         return;
                     }
-                    document.getElementById(divId).innerHTML = response;
-                    // id='btn_{tpl.id}_{streetname}'
-                    // Hacky code below
-                    let buttons = response.split('id=\"');
-                    var first = true;
-                    for (let btn in buttons) {
-                        if (first) {
-                            first = false;
-                            continue;
+
+                    var wiki = JSON.parse(response);
+
+                    if (wiki.alreadyMatched) {
+                        document.getElementById(divId).innerHTML = "Already matched by now, please pick a different street";
+                    } else {
+
+
+                        let wikiEntries = "";
+                        let btnIds = [];
+
+                        for (var i in wiki.wikidataEntries) {
+                            let entry = wiki.wikidataEntries[i];
+                            let btnId = "btn_" + entry.id + "_" + feature.properties.name.replace(/\"/g, "");
+                            let entryRow =
+                                "<tr>" +
+                                "<td><a target='_blank' href='https://www.wikidata.org/wiki/" + entry.id + "'>" + entry.id + "</a></td>" +
+                                "<td>" + entry.label + "</td><" +
+                                "td>" + entry.description + "</td>" +
+                                "<td>" + entry.instanceOf + "</td>" +
+                                "<td><button id='"+btnId+"' type='button' >Select this entry</button></td></tr>";
+                            wikiEntries += entryRow;
+                            btnIds.push(btnId);
                         }
-                        let id = buttons[btn].split('"')[0];
-                        let wikidata = id.split("_")[1];
 
-                        document.getElementById(id).addEventListener("click", () => applyWD(feature.properties.name, wikidata, divId), false);
+                        let innerHtml =
+                            "The name <b>" + name + "</b> can match to the following wikidata entries:<br/>" +
+                            "<table>" +
+                            "<tr>" +
+                            "<th>Id</th>" +
+                            "<th>Label</th>" +
+                            "<th>Description</th>" +
+                            "<th>Is a</th>" +
+                            "</tr>" +
+                            wikiEntries + "</table>";
+
+
+                        document.getElementById(divId).innerHTML = innerHtml;
+
+                        for (let j in btnIds) {
+                            let btnId = btnIds[j];
+
+                            // id='btn_{tpl.id}_{streetname}'
+                            // Hacky code below  /*+
+
+                            console.log("Adding listener to " + btnId);
+                            let wikidata = btnId.split("_")[1];
+                            document.getElementById(btnId).addEventListener("click", () => applyWD(feature.properties.name, wikidata, divId), false);
+
+                        }
                     }
-
 
                 }
 
@@ -251,7 +291,7 @@
         overpasser = new OverpassWizard("way", undefined, {
             "highway": "*",
             "name": "*",
-            "name:etymology:wikidata": "*"
+            "wikidata": "*"
         });
         minzoom = 11;
     }

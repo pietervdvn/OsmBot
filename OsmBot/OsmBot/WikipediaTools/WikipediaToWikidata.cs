@@ -138,6 +138,13 @@ namespace OsmBot.WikipediaTools
         {
             var statements = Statements(wikidata).Result.Item1;
 
+
+            if (statements.TryGetValue("P138", out var namedAfter))
+            {
+                Console.WriteLine("Named after something else, looking up");
+                return await GetGenderRaw(namedAfter);
+            }
+
             if (statements.TryGetValue("P21", out var gender))
             {
                 if (gender.Equals("Q6581097"))
