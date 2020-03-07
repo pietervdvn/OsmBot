@@ -5,19 +5,26 @@ export default class OverpassWizard {
     scriptEnd = "%29%3Bout%20body%3B%3E%3Bout%20skel%20qt%3B";
     cache = {};
 
-    /*
-    * typ: one of 'node', 'way', 'relation' or 'nwr'
-    * query: an object with key-value pairs which should all be matched (AND)
-    * callback: the geojson data will be pushed into this
-    * */
-    constructor(typ, callback, query, ) {
-        var queryString = Object.keys(query).map(key => {
+    AsQuery(query) {
+        return Object.keys(query).map(key => {
                 if (query[key] === "*") {
                     return "%5B%22" + key + "%22%5D";
                 }
                 return "%5B%22" + key + "%22%3D%22" + query[key] + "%22%5D";
             }
         ).join("");
+    }
+
+    /*
+    * typ: one of 'node', 'way', 'relation' or 'nwr'
+    * query: an object with key-value pairs which should all be matched (AND)
+    * callback: the geojson data will be pushed into this
+    * */
+    constructor(typ, callback, query, queryOr) {
+        let queryString = this.AsQuery(query);
+        if (queryOr) {
+            queryString += this.AsQuery(queryOr);
+        }
         this.query = typ + queryString;
         this.callback = callback;
         this.lastRun = undefined;

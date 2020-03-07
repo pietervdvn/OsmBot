@@ -127,7 +127,8 @@
         
         if (wd !== undefined) {
             layer.setStyle({color: '#00000044'});
-            layer.bindPopup('<h1>' + feature.properties.name + '</h1><p>This street is already matched and refers to <a href="https://www.wikidata.org/wiki/' + wd + '">' + wd + '</a></p>');
+            layer.bindPopup('<h1>' + feature.properties.name + '</h1><p>This street is already matched and refers to <a href="https://www.wikidata.org/wiki/' + wd + '">' + wd + '</a>' +
+                '<br /><a target="_blank" href="https://osm.org/' + feature.id + '">Open on OpenStreetMap</a></p>');
 
 
             const Http = new XMLHttpRequest();
@@ -172,7 +173,7 @@
             let irisMonument = 'http://www.irismonument.be/index.php?quick_search=' + feature.properties["name:nl"] + '&section=search&results=y&Submit=ok';
             layer.setStyle({color: "#ff0000", weight: 7});
 
-            var popup = layer.bindPopup(
+            layer.bindPopup(
                 '<h1>' + feature.properties.name + '</h1>' +
                 '<a target="_blank" href="' + invOnrErf + '">Zoek op Inventaris Onroerend Erfgoed</a><br/>' +
                 '<a target="_blank" href="' + irisMonument + '">Search on irisMonument</a><br/>' +
@@ -292,7 +293,12 @@
             "highway": "*",
             "name": "*",
             "wikidata": "*"
-        });
+            },
+            {
+                "highway": "*",
+                "name": "*",
+                "source:etymology:wikidata": "*"
+            });
         minzoom = 11;
     }
 
