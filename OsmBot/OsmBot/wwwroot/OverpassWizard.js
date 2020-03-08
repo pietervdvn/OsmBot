@@ -23,7 +23,7 @@ export default class OverpassWizard {
     constructor(typ, callback, query, queryOr) {
         let queryString = this.AsQuery(query);
         if (queryOr) {
-            queryString += this.AsQuery(queryOr);
+            queryString = this.AsQuery(queryOr);
         }
         this.query = typ + queryString;
         this.callback = callback;

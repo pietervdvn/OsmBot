@@ -289,15 +289,16 @@
     let minzoom = 14;
     let overpasser = new OverpassWizard("way", undefined, {"highway": "*", "name": "*"});
     if (resultOnly) {
-        overpasser = new OverpassWizard("way", undefined, {
-            "highway": "*",
-            "name": "*",
-            "wikidata": "*"
+        overpasser = new OverpassWizard("way", undefined, 
+            {
+                "highway": "*",
+                "name": "*",
+                "name:etymology:wikidata": "*"
             },
             {
                 "highway": "*",
                 "name": "*",
-                "source:etymology:wikidata": "*"
+                "wikidata": "*"
             });
         minzoom = 11;
     }
