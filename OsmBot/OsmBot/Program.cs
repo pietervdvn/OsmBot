@@ -11,7 +11,9 @@ namespace OsmBot
     {
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>() //*
+                .UseStartup<Startup>()
+                .UseUrls("http://192.168.1.23:5000")
+        //*
                 ;
                 /*/
                 .UseUrls("http://178.116.193.137:5000"); //*/
