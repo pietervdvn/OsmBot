@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.3" />
-        <PackageReference Include="Microsoft.AspNetCore.All" Version="2.2.0" />
         <PackageReference Include="GeoAPI" Version="1.7.5" />
         <PackageReference Include="GeoAPI.Core" Version="1.7.5" />
+        <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
         <PackageReference Include="NetTopologySuite" Version="2.0.0" />
         <PackageReference Include="NetTopologySuite.CoordinateSystems" Version="1.15.3" />
         <PackageReference Include="NetTopologySuite.Features" Version="2.0.0" />

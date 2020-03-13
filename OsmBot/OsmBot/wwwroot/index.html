@@ -121,7 +121,7 @@
     function styleGeoJson(feature, layer) {
         let wd = feature.properties["name:etymology:wikidata"];
         
-        if(wd === undefined){
+        if(wd === undefined && resultOnly){
             wd = feature.properties["wikidata"];
         }
         

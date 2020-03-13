@@ -21,11 +21,11 @@ export default class OverpassWizard {
     * callback: the geojson data will be pushed into this
     * */
     constructor(typ, callback, query, queryOr) {
-        let queryString = this.AsQuery(query);
-        if (queryOr) {
-            queryString = this.AsQuery(queryOr);
+
+        this.queries = [typ + this.AsQuery(query)]
+        if (queryOr !== undefined) {
+            this.queries.push(typ + this.AsQuery(queryOr));
         }
-        this.query = typ + queryString;
         this.callback = callback;
         this.lastRun = undefined;
         this.oldMinLat = 0;
@@ -64,7 +64,12 @@ export default class OverpassWizard {
         
         this.lastRun = new Date();
         
-        let query = this.GenQuery(lon0, lon1, lat0, lat1);
+        minLon = minLon - 0.05;
+        maxLon = maxLon + 0.05;
+        minLat = minLat - 0.05;
+        maxLat = maxLat + 0.05;
+        
+        let query = this.GenQuery(minLon, maxLon, minLat, maxLat);
         console.log("Running query");
 
         if (this.cache[query] !== undefined) {
@@ -98,7 +103,12 @@ export default class OverpassWizard {
     }
 
     GenQuery(lon0, lon1, lat0, lat1) {
-        return this.prefix + this.scriptStart + this.query + this.GenBBox(lon0, lon1, lat0, lat1) + this.scriptEnd;
+        let query = "";
+        for (var i in this.queries) {
+            let qi = this.queries[i];
+            query += qi + this.GenBBox(lon0, lon1, lat0, lat1);
+        }
+        return this.prefix + this.scriptStart + query + this.scriptEnd;
     }
 
     GenBBox(lon0, lon1, lat0, lat1) {

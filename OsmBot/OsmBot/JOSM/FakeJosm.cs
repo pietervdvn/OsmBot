@@ -24,7 +24,6 @@ namespace OsmBot.JOSM
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseUrls("http://127.0.0.1:8111")
-                .UseApplicationInsights()
                 .Build();
 
             host.Run();
