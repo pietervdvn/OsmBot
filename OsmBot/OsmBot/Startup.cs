@@ -21,14 +21,14 @@ namespace OsmBot
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddMvc(options => { options.EnableEndpointRouting = false; })
-                .SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAnyOrigin",
-                    builder => builder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET"));
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
+            services.AddMvc(options => { options.EnableEndpointRouting = false; })
+                .SetCompatibilityVersion(CompatibilityVersion.Latest);
             
         }
         
@@ -37,6 +37,7 @@ namespace OsmBot
         public void Configure(IApplicationBuilder app)
         {
 
+            app.UseCors("AllowAnyOrigin");
             app.UseDefaultFiles();
             app.UseStaticFiles();
             var options = new ForwardedHeadersOptions
@@ -72,7 +73,6 @@ namespace OsmBot
             });
            
             app.UseMvc();
-            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             
         }
 
