@@ -72,7 +72,7 @@ namespace OsmBot
             });
            
             app.UseMvc();
-            app.UseCors("AllowAllOrigins");
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             
         }
 
